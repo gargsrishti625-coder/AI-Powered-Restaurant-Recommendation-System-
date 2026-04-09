@@ -1,0 +1,156 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>AI Restaurant Recommender</title>
+  <link rel="stylesheet" href="/static/style.css" />
+</head>
+<body>
+
+  <!-- ── Header ─────────────────────────────────────────────────────────── -->
+  <header class="site-header">
+    <div class="header-inner">
+      <div class="header-brand">
+        <span class="header-icon">🍽️</span>
+        <div>
+          <h1 class="header-title">AI Restaurant Recommender</h1>
+          <p class="header-sub">Powered by Gemini · Zomato Bangalore dataset</p>
+        </div>
+      </div>
+      <a class="header-docs" href="/docs" target="_blank">API Docs ↗</a>
+    </div>
+  </header>
+
+  <!-- ── Main layout ─────────────────────────────────────────────────────── -->
+  <main class="main-layout">
+
+    <!-- ── Form panel ──────────────────────────────────────────────────── -->
+    <aside class="form-panel">
+      <form id="recommend-form" novalidate>
+
+        <!-- Location dropdown -->
+        <div class="field-group">
+          <label class="field-label" for="location">
+            Location <span class="required">*</span>
+          </label>
+          <select class="field-select" id="location" name="location" required>
+            <option value="" disabled selected>Loading locations…</option>
+          </select>
+          <span class="field-hint">Select a city or Bangalore locality</span>
+        </div>
+
+        <!-- Budget tabs -->
+        <div class="field-group">
+          <label class="field-label">Budget</label>
+          <div class="budget-tabs" role="group">
+            <input type="radio" id="budget-low"    name="budget" value="low"    />
+            <label for="budget-low"    class="budget-tab">Low<br/><small>Under ₹700</small></label>
+
+            <input type="radio" id="budget-medium" name="budget" value="medium" checked />
+            <label for="budget-medium" class="budget-tab">Medium<br/><small>₹700–2000</small></label>
+
+            <input type="radio" id="budget-high"   name="budget" value="high"   />
+            <label for="budget-high"   class="budget-tab">High<br/><small>₹2000+</small></label>
+          </div>
+        </div>
+
+        <!-- Cuisine multi-select -->
+        <div class="field-group">
+          <label class="field-label">
+            Cuisine Preferences <span class="optional-label">(optional)</span>
+          </label>
+          <!-- Trigger button -->
+          <div class="ms-wrapper" id="ms-wrapper">
+            <button type="button" class="ms-trigger" id="ms-trigger" aria-haspopup="listbox" aria-expanded="false">
+              <span class="ms-trigger-text" id="ms-trigger-text">Any cuisine</span>
+              <span class="ms-arrow">▾</span>
+            </button>
+            <!-- Dropdown panel -->
+            <div class="ms-panel" id="ms-panel" role="listbox" aria-multiselectable="true">
+              <input class="ms-search" type="text" id="ms-search" placeholder="Search cuisines…" autocomplete="off" />
+              <div class="ms-list" id="ms-list">
+                <div class="ms-empty">Loading cuisines…</div>
+              </div>
+            </div>
+          </div>
+          <div class="ms-chips" id="ms-chips"></div>
+          <span class="field-hint">Leave blank for any cuisine</span>
+        </div>
+
+        <!-- Rating slider -->
+        <div class="field-group">
+          <label class="field-label" for="min-rating">
+            Minimum Rating &nbsp;<span id="rating-display" class="rating-badge">3.5 ★</span>
+          </label>
+          <input
+            class="field-range"
+            type="range"
+            id="min-rating"
+            name="min_rating"
+            min="0" max="5" step="0.1"
+            value="3.5"
+          />
+          <div class="range-labels">
+            <span>0</span><span>2.5</span><span>5 ★</span>
+          </div>
+        </div>
+
+        <!-- Additional preferences (optional) -->
+        <div class="field-group">
+          <label class="field-label" for="additional">
+            Additional Preferences <span class="optional-label">(optional)</span>
+          </label>
+          <textarea
+            class="field-input field-textarea"
+            id="additional"
+            name="additional_preferences"
+            rows="3"
+            placeholder="e.g. family-friendly, quick service, outdoor seating"
+          ></textarea>
+        </div>
+
+        <button type="submit" class="btn-submit" id="submit-btn">
+          <span class="btn-text">Find Restaurants</span>
+          <span class="btn-spinner" id="btn-spinner" style="display:none"></span>
+        </button>
+
+      </form>
+    </aside>
+
+    <!-- ── Results panel ───────────────────────────────────────────────── -->
+    <section class="results-panel">
+
+      <div class="state-panel" id="state-empty">
+        <div class="empty-icon">🔍</div>
+        <h2 class="empty-title">Ready to explore</h2>
+        <p class="empty-text">
+          Fill in your preferences and hit <strong>Find Restaurants</strong>.<br/>
+          Gemini AI will rank the best matches and explain why.
+        </p>
+      </div>
+
+      <div class="state-panel state-loading" id="state-loading" style="display:none">
+        <div class="loading-ring"></div>
+        <p class="loading-text">Finding the best matches…<br/>
+          <small>Gemini is analysing candidates — this takes ~15 s</small>
+        </p>
+      </div>
+
+      <div class="state-panel state-error" id="state-error" style="display:none">
+        <div class="error-icon">⚠️</div>
+        <h2 class="error-title" id="error-title">Something went wrong</h2>
+        <p class="error-text"  id="error-text"></p>
+      </div>
+
+      <div id="state-results" style="display:none">
+        <div class="results-meta" id="results-meta"></div>
+        <div class="results-list" id="results-list"></div>
+      </div>
+
+    </section>
+  </main>
+
+  <script src="/static/app.js"></script>
+</body>
+</html>

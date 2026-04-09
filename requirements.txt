@@ -1,0 +1,9 @@
+datasets
+pandas
+sqlalchemy
+google-genai
+fastapi
+uvicorn[standard]
+pydantic>=2.0
+python-dotenv
+httpx

@@ -1,0 +1,51 @@
+{
+  "row_count": 41410,
+  "column_count": 14,
+  "null_ratio_by_column": {
+    "restaurant_id": 0.0,
+    "name": 0.0,
+    "city": 0.0,
+    "locality": 0.0,
+    "cuisines": 0.0,
+    "avg_cost_for_two": 0.0,
+    "rating": 0.0,
+    "votes": 0.0,
+    "currency": 0.0,
+    "is_table_booking": 0.0,
+    "is_online_delivery": 0.0,
+    "tags": 1.0,
+    "last_updated_at": 0.0,
+    "quality_flag_missing_required": 0.0
+  },
+  "unique_count_by_key_columns": {
+    "restaurant_id": 41410,
+    "name": 6623,
+    "city": 30
+  },
+  "range_checks": {
+    "rating_min": 1.8,
+    "rating_max": 4.9,
+    "cost_min": 40.0,
+    "cost_max": 6000.0
+  },
+  "schema_validation": {
+    "total_rows": 41410,
+    "passed_rows": 41410,
+    "pass_ratio": 1.0,
+    "missing_required_columns": [],
+    "null_counts_required": {
+      "restaurant_id": 0,
+      "name": 0,
+      "city": 0,
+      "locality": 0,
+      "cuisines": 0,
+      "avg_cost_for_two": 0,
+      "rating": 0,
+      "votes": 0,
+      "currency": 0,
+      "last_updated_at": 0
+    },
+    "invalid_rating_count": 0,
+    "invalid_cost_count": 0
+  }
+}
