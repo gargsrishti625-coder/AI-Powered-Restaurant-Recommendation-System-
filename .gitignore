@@ -17,7 +17,6 @@ build/
 
 # Data (raw/processed, typically large)
 data/raw/
-data/processed/
 data/zomato.csv
 data/data/
 
@@ -35,3 +34,5 @@ Thumbs.db
 .idea/
 .vscode/
 *.swp
+
+.venv/
